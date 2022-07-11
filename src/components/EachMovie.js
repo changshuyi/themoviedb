@@ -1,4 +1,4 @@
-import './eachMovie.css';
+import './EachMovie.css';
 const EachMovie = (props) => {
   let poster = 'https://image.tmdb.org/t/p/original' + props.moviePoster;
   let backdropImage = 'https://image.tmdb.org/t/p/original' + props.bgImage;

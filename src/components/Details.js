@@ -1,25 +1,35 @@
-import './details.css';
+import './Details.css';
 
 const Details = (props) => {
-  let backdropImage = 'https://image.tmdb.org/t/p/original' + props.bgImage;
+  const backdropImage = 'https://image.tmdb.org/t/p/original' + props.bgImage;
   return (
     <div
       className="detailsPage"
-      style={{ backgroundImage: `url(${backdropImage})` }}
+      style={{
+        backgroundImage: `url(${backdropImage})`,
+        backgroundRepeat: 'no-repeat',
+      }}
     >
       <div className="banner">
+        <div>
+          <a href={props.homepage}>
+            <img
+              alt="moviePoster"
+              className="moviePosterD"
+              src={'https://image.tmdb.org/t/p/original' + props.moviePoster}
+            ></img>{' '}
+          </a>
+        </div>
         <div className="details">
           <div className="rateAndLangD">
             <h5 className="movieReleaseDateD"> {props.movieRD} </h5>
             {props.status === 'Released' ? (
               <h5 className="movieReleaseDateD" style={{ color: '#00ffdd' }}>
-                {' '}
-                {props.status}{' '}
+                {props.status}
               </h5>
             ) : props.status === 'Post Production' ? (
               <h5 className="movieReleaseDateD" style={{ color: '#eeee00' }}>
-                {' '}
-                {props.status}{' '}
+                {props.status}
               </h5>
             ) : (
               <h5 className="movieReleaseDateD"> {props.status} </h5>
@@ -29,9 +39,7 @@ const Details = (props) => {
           {props.type === 'tv' ? '' : <h2> {props.tagline} </h2>}
 
           <p className="movieDescriptionD"> {props.movieDescription} </p>
-          <div style={{ marginBottom: '30px' }}></div>
           <hr style={{ opacity: '0.1' }}></hr>
-          <div style={{ marginBottom: '15px' }}></div>
           <div style={{ display: 'inline-flex' }}>
             {props.type !== 'tv' ? (
               props.movieGenres === undefined ? (
@@ -49,8 +57,7 @@ const Details = (props) => {
                         }}
                         className="movieGenreD"
                       >
-                        {' '}
-                        {genre.name}{' '}
+                        {genre.name}
                       </h4>
                     </div>
                   );
@@ -60,40 +67,26 @@ const Details = (props) => {
               <div></div>
             )}
           </div>
-          {props.type === 'tv' ? (
+          {/* {props.type === 'tv' ? (
             <div></div>
           ) : (
             <div>
               <div className="rateAndLangD">
                 <p className="movieDescriptionD">
-                  {' '}
-                  {'Runtime: ' + props.runtime + ' mins'}{' '}
+                  {'片長: ' + props.runtime + ' 分鐘'}
                 </p>
-                <p className="movieDescriptionD">
-                  {' '}
-                  {'Budget: $' + props.budget}{' '}
-                </p>
+                <p className="movieDescriptionD">{'票房: $' + props.budget}</p>
               </div>
             </div>
-          )}
+          )} */}
           <div className="rateAndLangD">
-            <h4 className="movieRatingD"> {'Rating: ' + props.movieRating} </h4>
+            <h4 className="movieRatingD"> {'滿意度: ' + props.movieRating} </h4>
             <h4>
-              Language:{' '}
-              <span className="movieLanguageD"> {props.movieLanguage} </span>{' '}
+              語言:
+              <span className="movieLanguageD"> {props.movieLanguage} </span>
             </h4>
           </div>
           <div style={{ paddingBottom: '20px' }}></div>
-        </div>
-        <div>
-          <a href={props.homepage}>
-            {' '}
-            <img
-              alt="moviePoster"
-              className="moviePosterD"
-              src={'https://image.tmdb.org/t/p/original' + props.moviePoster}
-            ></img>{' '}
-          </a>
         </div>
       </div>
     </div>

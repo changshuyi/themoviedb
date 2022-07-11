@@ -1,7 +1,3 @@
 export const MovieExpanded = () => {
-    return (
-        <div>
-            
-        </div>
-    );
-}
+  return <div></div>;
+};

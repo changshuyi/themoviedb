@@ -1,13 +1,15 @@
-import './header.css';
 import { useState, useEffect } from 'react';
 import Details from './Details';
 import EachMovie from './EachMovie';
+import './Contact.css';
 
-const Contact = (props) => {
-  let [movieList, setMovieList] = useState([]);
-  let [updateVal, setUpdateVal] = useState(0);
+const Contact = () => {
+  let [category, setCategory] = useState('popular');
   let [time, setTime] = useState('week');
   let [type, setType] = useState('movie');
+
+  let [movieList, setMovieList] = useState([]);
+
   const [currentIndex, changeCurrentIndex] = useState(0);
   const [movieID, setMovieID] = useState(453395);
   const [movieDetails, setMovieDetails] = useState({});
@@ -17,43 +19,66 @@ const Contact = (props) => {
 
   useEffect(() => {
     // 趨勢
-    fetch(
-      'https://api.themoviedb.org/3/trending/' +
-        type +
-        '/' +
-        time +
-        '?api_key=bef2528d4379f5461c3b41b4c7002244&page=' +
-        page +
-        '&language=zh-TW'
-    )
-      .then((result) => result.json())
-      .then((resultJSON) => {
-        setMovieList(resultJSON.results);
-        setTotalPages(resultJSON['total_pages']);
-      })
-      .catch((e) => console.log(e))
-      .finally(() => {
-        setUpdateVal(1);
-      });
-  }, [type, time, page]);
+    if (category === 'trending') {
+      fetch(
+        'https://api.themoviedb.org/3/trending/' +
+          type +
+          '/' +
+          time +
+          '?api_key=bef2528d4379f5461c3b41b4c7002244&page=' +
+          page +
+          '&language=zh-TW'
+      )
+        .then((result) => result.json())
+        .then((resultJSON) => {
+          setMovieList(resultJSON.results);
+          setTotalPages(resultJSON['total_pages']);
+        })
+        .catch((e) => console.log(e))
+        .finally(() => {
+          console.log('finally');
+        });
+    } else {
+      // Popular movie/popular tv/popular
+      fetch(
+        'https://api.themoviedb.org/3/' +
+          type +
+          '/' +
+          category +
+          '?api_key=bef2528d4379f5461c3b41b4c7002244&page=' +
+          page +
+          '&language=zh-TW'
+      )
+        .then((result) => result.json())
+        .then((resultJSON) => {
+          console.log('resultJSON = ', resultJSON);
+          setMovieList(resultJSON.results);
+          setTotalPages(resultJSON['total_pages']);
+        })
+        .catch((e) => console.log(e))
+        .finally(() => {
+          console.log('finally');
+        });
+    }
+  }, [type, category, time, page]);
 
-  useEffect(() => {
-    fetch(
-      'https://api.themoviedb.org/3/movie/' +
-        movieID +
-        '?api_key=bef2528d4379f5461c3b41b4c7002244&language=zh-TW'
-    )
-      .then((result) => result.json())
-      .then((resultJSON) => {
-        setMovieDetails(resultJSON);
-        setMovieID(resultJSON['id']);
-        console.log(resultJSON['budget']);
-      })
-      .catch((e) => console.log(e))
-      .finally(() => {
-        setMovieGenre(movieDetails['genres']);
-      });
-  }, [movieID, type, page]);
+  //   useEffect(() => {
+  //     fetch(
+  //       'https://api.themoviedb.org/3/movie/' +
+  //         movieID +
+  //         '?api_key=bef2528d4379f5461c3b41b4c7002244&language=zh-TW'
+  //     )
+  //       .then((result) => result.json())
+  //       .then((resultJSON) => {
+  //         setMovieDetails(resultJSON);
+  //         setMovieID(resultJSON['id']);
+  //         console.log(resultJSON['budget']);
+  //       })
+  //       .catch((e) => console.log(e))
+  //       .finally(() => {
+  //         setMovieGenre(movieDetails['genres']);
+  //       });
+  //   }, [movieID, type, page, movieDetails]);
 
   function changeMovie(index) {
     console.log(index);
@@ -74,6 +99,51 @@ const Contact = (props) => {
 
   return (
     <div>
+      <div className="header">
+        <select
+          value={category}
+          className="categoryBtn"
+          onChange={(e) => {
+            console.log(e.target.value);
+            setCategory(e.target.value);
+          }}
+        >
+          <option value="popular"> What's Popular </option>
+          <option value="trending"> Trending </option>
+        </select>
+
+        <div>
+          {
+            /**popular 沒有日、週 */
+            category === 'popular' ? (
+              ''
+            ) : (
+              <select
+                value={time}
+                className="watchLaterBtn"
+                onChange={(e) => {
+                  console.log(e.target.value);
+                  setTime(e.target.value);
+                }}
+              >
+                <option value="day"> 今日 </option>
+                <option value="week"> 本週 </option>
+              </select>
+            )
+          }
+          <select
+            value={type}
+            className="watchLaterBtn"
+            onChange={(e) => {
+              console.log(e.target.value);
+              setType(e.target.value);
+            }}
+          >
+            <option value="movie"> 電影 </option>
+            <option value="tv"> 影集 </option>
+          </select>
+        </div>
+      </div>
       {movieList.length > 0 ? (
         <div>
           <div>
@@ -140,7 +210,7 @@ const Contact = (props) => {
       )}
 
       <button
-        onClick={(e) => {
+        onClick={() => {
           setPage(page > 1 ? page - 1 : 1);
           scrollToTop();
         }}
@@ -155,7 +225,7 @@ const Contact = (props) => {
       </span>
       <button
         className="pageBtn"
-        onClick={(e) => {
+        onClick={() => {
           setPage(page + 1 > totalPages ? 1 : page + 1);
           scrollToTop();
           movieList.length > 0
