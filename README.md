@@ -1,19 +1,12 @@
-## _Donno what movie to watch? or what series to binge?_
-
-### Look no further cause I made a simple to use, minimal, aesthetic and feature full react web-app that show you trending movies and series.
-
----
-
 ### Here are some screenshots...
 
 <br>
 
-<img src="./assets/1.png">
-<img src="./assets/2.png">
-<img src="./assets/3.png">
-<img src="./assets/4.png">
-<img src="./assets/5.png">
-<img src="./assets/6.png">
+<img src="./assets/1.jpg">
+<img src="./assets/2.jpg">
+<img src="./assets/3.jpg">
+<img src="./assets/4.jpg">
+<img src="./assets/5.jpg">
 
 <br>
 
@@ -23,6 +16,6 @@
 
 ---
 
-> Dagmawi Babi
+> Shuyi
 >
-> May 9 / 2020 GC
+> July 11 / 2022
