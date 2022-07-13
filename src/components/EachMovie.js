@@ -3,7 +3,7 @@ const EachMovie = (props) => {
   let poster = 'https://image.tmdb.org/t/p/original' + props.moviePoster;
   let backdropImage = 'https://image.tmdb.org/t/p/original' + props.bgImage;
   return (
-    <div className="movieStack" onClick={(e) => props.onClickFunc(props.index)}>
+    <div className="movieStack" onClick={() => props.onClickFunc(props.index)}>
       <div className="eachMovie">
         <img alt="moviePoster" src={poster} className="moviePoster" />
         <h1 className="movieTitle"> {props.movieTitle} </h1>

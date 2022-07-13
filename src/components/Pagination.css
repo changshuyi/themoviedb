@@ -1,0 +1,33 @@
+.pageNumbers {
+  list-style: none;
+  display: flex;
+}
+
+.pageNumbers li {
+  padding: 10px;
+  width: 20px;
+  height: 20px;
+  color: #c6c6c6;
+  border-radius: 20px;
+  /* border: 1px solid white; */
+  cursor: pointer;
+}
+
+.pageNumbers li.active {
+  background-color: #3a3a3a;
+  color: #c6c6c6;
+}
+
+.pageNumbers li button {
+  background-color: transparent;
+  border-color: transparent;
+  border-radius: 20px;
+  color: #c6c6c6;
+  cursor: pointer;
+}
+.pageNumbers li button:hover {
+  color: #f9f9f9;
+}
+.pageNumbers li button:focus {
+  outline: none;
+}

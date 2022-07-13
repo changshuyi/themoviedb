@@ -129,16 +129,20 @@
 }
 
 .pageBtn {
+  background: transparent;
+  border-color: transparent;
   width: 100px;
   height: 30px;
-  font-weight: bold;
+  font-weight: 700;
+  color: #c6c6c6;
   margin-bottom: 50px;
   margin-right: 20px;
-  background-color: #45b6d5;
+  margin-left: 20px;
   font-size: 17px;
   border-radius: 20px;
+  cursor: pointer;
 }
 
 .pageBtn:hover {
-  background-color: #a3dded;
+  background-color: #3a3a3a;
 }

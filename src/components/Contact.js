@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Details from './Details';
 import EachMovie from './EachMovie';
+import Pagination from './Pagination';
 import './Contact.css';
 
 const Contact = () => {
@@ -14,8 +15,11 @@ const Contact = () => {
   const [movieID, setMovieID] = useState(453395);
   const [movieDetails, setMovieDetails] = useState({});
   const [movieGenres, setMovieGenre] = useState(movieDetails['genres']);
+
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
+  // const startIndex = (page - 1) * USER_PER_PAGE;
 
   useEffect(() => {
     // 趨勢
@@ -51,7 +55,7 @@ const Contact = () => {
       )
         .then((result) => result.json())
         .then((resultJSON) => {
-          console.log('resultJSON = ', resultJSON);
+          // console.log('resultJSON = ', resultJSON);
           setMovieList(resultJSON.results);
           setTotalPages(resultJSON['total_pages']);
         })
@@ -61,6 +65,10 @@ const Contact = () => {
         });
     }
   }, [type, category, time, page]);
+
+  const handlePageClick = (number) => {
+    setPage(number);
+  };
 
   //   useEffect(() => {
   //     fetch(
@@ -91,10 +99,11 @@ const Contact = () => {
   }
 
   function scrollToTop() {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    window.scrollTo(0, 0);
+    // window.scrollTo({
+    //   top: 0,
+    //   behavior: 'smooth',
+    // });
   }
 
   return (
@@ -104,8 +113,8 @@ const Contact = () => {
           value={category}
           className="categoryBtn"
           onChange={(e) => {
-            console.log(e.target.value);
             setCategory(e.target.value);
+            setPage(1);
           }}
         >
           <option value="popular"> What's Popular </option>
@@ -122,8 +131,8 @@ const Contact = () => {
                 value={time}
                 className="watchLaterBtn"
                 onChange={(e) => {
-                  console.log(e.target.value);
                   setTime(e.target.value);
+                  setPage(1);
                 }}
               >
                 <option value="day"> 今日 </option>
@@ -135,8 +144,8 @@ const Contact = () => {
             value={type}
             className="watchLaterBtn"
             onChange={(e) => {
-              console.log(e.target.value);
               setType(e.target.value);
+              setPage(1);
             }}
           >
             <option value="movie"> 電影 </option>
@@ -208,25 +217,18 @@ const Contact = () => {
           movieTitle="Movie Title"
         />
       )}
-
-      <button
-        onClick={() => {
-          setPage(page > 1 ? page - 1 : 1);
-          scrollToTop();
-        }}
-        className="pageBtn"
-      >
-        {' '}
-        Back{' '}
-      </button>
-      <span style={{ color: 'white', marginRight: '15px' }}>
-        {' '}
-        Page: {page + '/' + totalPages}{' '}
-      </span>
-      <button
+      <div style={{ display: 'inline-flex' }}>
+        <Pagination
+          totalPages={totalPages}
+          page={page}
+          handleClick={handlePageClick}
+        />
+      </div>
+      {/* <button
         className="pageBtn"
         onClick={() => {
           setPage(page + 1 > totalPages ? 1 : page + 1);
+          setCurrentPage(page + 1 > totalPages ? 1 : page + 1);
           scrollToTop();
           movieList.length > 0
             ? setMovieID(movieList[0]['id'])
@@ -235,9 +237,8 @@ const Contact = () => {
           setMovieGenre(movieDetails['genres']);
         }}
       >
-        {' '}
-        Next{' '}
-      </button>
+        Next
+      </button> */}
     </div>
   );
 };
