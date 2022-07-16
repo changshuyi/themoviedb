@@ -4,6 +4,10 @@ import EachMovie from './EachMovie';
 import Pagination from './Pagination';
 import './Contact.css';
 
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 const Contact = () => {
   let [category, setCategory] = useState('popular');
   let [time, setTime] = useState('week');
@@ -18,6 +22,41 @@ const Contact = () => {
 
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    initialSlide: 0,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
 
   // const startIndex = (page - 1) * USER_PER_PAGE;
 
@@ -180,9 +219,9 @@ const Contact = () => {
             />
           </div>
           <div className="gridView">
-            {movieList.map((movie, index) => {
-              return (
-                <div>
+            <Slider {...settings}>
+              {movieList.map((movie, index) => {
+                return (
                   <EachMovie
                     key={index}
                     index={index}
@@ -204,9 +243,9 @@ const Contact = () => {
                     movieRating={movieList[index]['vote_average']}
                     movieLanguage={movieList[index]['original_language']}
                   />
-                </div>
-              );
-            })}
+                );
+              })}
+            </Slider>
           </div>
         </div>
       ) : (

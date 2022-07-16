@@ -1,16 +1,53 @@
-.movieStack {
+.card {
+  border: 1px solid #ffffff;
+  background: #000000;
+  border-radius: 8px;
+  overflow: hidden;
+
+  height: 400px;
+  color: #ffffff;
+}
+
+.card-top h1 {
+  font-size: 1rem;
+  margin: 10px 20px;
+}
+
+.card-top > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-bottom {
+  margin: 10px 20px;
+}
+
+.category {
   position: relative;
 }
+
+.category::before {
+  content: '';
+  background: rgb(255, 61, 61);
+  position: absolute;
+  top: calc(100% +10px);
+  left: 0;
+  right: 0;
+  height: 2px;
+}
+
 .eachMovie {
   background-color: #222222;
+  /* border: 1px solid #999999; */
   padding: 10px;
   height: fit-content;
-  border: 1px solid #121212;
   margin-bottom: 10px;
-  border-radius: 15px;
-  color: white;
+  border-radius: 10px;
+  color: #ffffff;
   padding-top: 20px;
   padding-bottom: 10px;
+  height: 500px;
 }
 
 .movieDescription {
@@ -38,10 +75,10 @@
 
 .movieStack:hover .eachMovie {
   background-color: #222222;
-  animation-name: rotateSlow;
+  /* animation-name: rotateSlow;
   animation-duration: 3s;
   animation-direction: alternate;
-  animation-iteration-count: infinite;
+  animation-iteration-count: infinite; */
 }
 
 .movieStack:hover .movieDescription {
@@ -51,9 +88,9 @@
   height: min-content;
   text-align: left;
   box-shadow: 0px 0px 2px 2px grey;
-  animation-name: descShow;
+  /* animation-name: descShow;
   animation-duration: 1s;
-  animation-direction: normal;
+  animation-direction: normal; */
   width: fit-content;
   z-index: 9999;
 }
@@ -96,6 +133,7 @@ h4 {
 
 .moviePoster {
   width: 300px;
+  height: 400px;
   border-radius: 10px;
   padding-bottom: 5px;
 }
