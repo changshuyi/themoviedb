@@ -1,5 +1,13 @@
 import './Details.css';
 
+const numberComma = (num) => {
+  if (num) {
+    let comma = /\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g;
+    return num.toString().replace(comma, ',');
+  }
+  return '';
+};
+
 const Details = (props) => {
   const backdropImage = 'https://image.tmdb.org/t/p/original' + props.bgImage;
   return (
@@ -53,7 +61,6 @@ const Details = (props) => {
                         style={{
                           marginRight: '10px',
                           fontWeight: 'normal',
-                          fontStyle: 'italic',
                         }}
                         className="movieGenreD"
                       >
@@ -67,7 +74,7 @@ const Details = (props) => {
               <div></div>
             )}
           </div>
-          {/* {props.type === 'tv' ? (
+          {props.type === 'tv' ? (
             <div></div>
           ) : (
             <div>
@@ -75,12 +82,17 @@ const Details = (props) => {
                 <p className="movieDescriptionD">
                   {'片長: ' + props.runtime + ' 分鐘'}
                 </p>
-                <p className="movieDescriptionD">{'票房: $' + props.budget}</p>
+                <p className="movieDescriptionD">
+                  {'票房: $' + numberComma(props.budget)}
+                </p>
               </div>
             </div>
-          )} */}
+          )}
           <div className="rateAndLangD">
-            <h4 className="movieRatingD"> {'滿意度: ' + props.movieRating} </h4>
+            <h4 className="movieRatingD">
+              {' '}
+              {'平均評分: ' + props.movieRating}{' '}
+            </h4>
             <h4>
               語言:
               <span className="movieLanguageD"> {props.movieLanguage} </span>

@@ -16,7 +16,7 @@ const Contact = () => {
   let [movieList, setMovieList] = useState([]);
 
   const [currentIndex, changeCurrentIndex] = useState(0);
-  const [movieID, setMovieID] = useState(453395);
+  const [movieID, setMovieID] = useState();
   const [movieDetails, setMovieDetails] = useState({});
   const [movieGenres, setMovieGenre] = useState(movieDetails['genres']);
 
@@ -58,8 +58,6 @@ const Contact = () => {
     ],
   };
 
-  // const startIndex = (page - 1) * USER_PER_PAGE;
-
   useEffect(() => {
     // 趨勢
     if (category === 'trending') {
@@ -75,6 +73,7 @@ const Contact = () => {
         .then((result) => result.json())
         .then((resultJSON) => {
           setMovieList(resultJSON.results);
+          setMovieID(resultJSON.results[0]['id']);
           setTotalPages(resultJSON['total_pages']);
         })
         .catch((e) => console.log(e))
@@ -94,8 +93,8 @@ const Contact = () => {
       )
         .then((result) => result.json())
         .then((resultJSON) => {
-          // console.log('resultJSON = ', resultJSON);
           setMovieList(resultJSON.results);
+          setMovieID(resultJSON.results[0]['id']);
           setTotalPages(resultJSON['total_pages']);
         })
         .catch((e) => console.log(e))
@@ -109,41 +108,39 @@ const Contact = () => {
     setPage(number);
   };
 
-  //   useEffect(() => {
-  //     fetch(
-  //       'https://api.themoviedb.org/3/movie/' +
-  //         movieID +
-  //         '?api_key=bef2528d4379f5461c3b41b4c7002244&language=zh-TW'
-  //     )
-  //       .then((result) => result.json())
-  //       .then((resultJSON) => {
-  //         setMovieDetails(resultJSON);
-  //         setMovieID(resultJSON['id']);
-  //         console.log(resultJSON['budget']);
-  //       })
-  //       .catch((e) => console.log(e))
-  //       .finally(() => {
-  //         setMovieGenre(movieDetails['genres']);
-  //       });
-  //   }, [movieID, type, page, movieDetails]);
+  useEffect(() => {
+    if (movieID) {
+      fetch(
+        'https://api.themoviedb.org/3/movie/' +
+          movieID +
+          '?api_key=bef2528d4379f5461c3b41b4c7002244&language=zh-TW'
+      )
+        .then((result) => result.json())
+        .then((resultJSON) => {
+          setMovieDetails(resultJSON);
+          setMovieGenre(resultJSON['genres']);
+          setMovieID(resultJSON['id']);
+          console.log(resultJSON['budget']);
+        })
+        .catch((e) => console.log(e))
+        .finally(() => {
+          console.log('finally');
+        });
+    }
+  }, [movieID]);
 
-  function changeMovie(index) {
-    console.log(index);
+  const changeMovie = (index) => {
     movieList.length > 0
       ? setMovieID(movieList[index]['id'])
       : setMovieID(453395);
     changeCurrentIndex(index);
     setMovieGenre(movieDetails['genres']);
     scrollToTop();
-  }
+  };
 
-  function scrollToTop() {
+  const scrollToTop = () => {
     window.scrollTo(0, 0);
-    // window.scrollTo({
-    //   top: 0,
-    //   behavior: 'smooth',
-    // });
-  }
+  };
 
   return (
     <div>
@@ -220,7 +217,7 @@ const Contact = () => {
           </div>
           <div className="gridView">
             <Slider {...settings}>
-              {movieList.map((movie, index) => {
+              {movieList.map((_, index) => {
                 return (
                   <EachMovie
                     key={index}
@@ -263,21 +260,6 @@ const Contact = () => {
           handleClick={handlePageClick}
         />
       </div>
-      {/* <button
-        className="pageBtn"
-        onClick={() => {
-          setPage(page + 1 > totalPages ? 1 : page + 1);
-          setCurrentPage(page + 1 > totalPages ? 1 : page + 1);
-          scrollToTop();
-          movieList.length > 0
-            ? setMovieID(movieList[0]['id'])
-            : setMovieID(453395);
-          changeCurrentIndex(0);
-          setMovieGenre(movieDetails['genres']);
-        }}
-      >
-        Next
-      </button> */}
     </div>
   );
 };
