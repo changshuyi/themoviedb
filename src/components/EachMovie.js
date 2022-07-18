@@ -29,7 +29,7 @@ const EachMovie = (props) => {
         {/* <h3> Title </h3> */}
         <p> {props.movieTitle} </p>
         {/* <h3> Description </h3> */}
-        <p> {props.movieDescription} </p>
+        <p>{props.movieDescription}</p>
         <div className="rateAndLang">
           {/* <h4> Rating </h4>
           <h4> Language </h4> 

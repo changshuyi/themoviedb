@@ -38,10 +38,9 @@
 }
 
 .eachMovie {
-  background-color: #222222;
+  background-color: #060606;
   /* border: 1px solid #999999; */
   padding: 10px;
-  height: fit-content;
   margin-bottom: 10px;
   border-radius: 10px;
   color: #ffffff;
@@ -59,7 +58,7 @@
   padding: 10px 20px;
   visibility: hidden;
   margin-bottom: 10px;
-  border-radius: 15px;
+  border-radius: 8px;
   color: white;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -87,7 +86,7 @@
   background-color: #333333;
   height: min-content;
   text-align: left;
-  box-shadow: 0px 0px 2px 2px grey;
+  box-shadow: 0px 0px 1px 1px grey;
   /* animation-name: descShow;
   animation-duration: 1s;
   animation-direction: normal; */
@@ -136,6 +135,7 @@ h4 {
   height: 400px;
   border-radius: 10px;
   padding-bottom: 5px;
+  margin: 0 auto;
 }
 
 .movieTitle {
@@ -145,7 +145,7 @@ h4 {
 }
 
 .movieDescription {
-  font-size: 15px;
+  font-size: 10px;
 }
 
 .movieRating {
